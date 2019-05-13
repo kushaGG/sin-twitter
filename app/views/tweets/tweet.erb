@@ -1,0 +1,38 @@
+
+
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <small><a href="/users/<%= @tweet.user.id %>"> @<%= @tweet.user.user_name %></a></small><br/>
+        <h3><%= @tweet.body %></h3>
+        <p>Created at: <time class="timeago" datetime="<%= @tweet.created_at.getutc.iso8601.to_s %>"><%= @tweet.created_at.strftime("%l:%M %p %v") %></time></p>
+        <div class="columns is-gapless">
+          <% if current_user && current_user.id == @tweet.user_id.to_i %>
+          <div class="column is-1">
+            <form action="/tweets/<%= @tweet.id %>" method=post>
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="submit" value="Delete" class="button is-danger">
+            </form>
+          </div>
+          <div class="column is-1">
+            <form action="/tweets/<%= @tweet.id %>/edit">
+              <input type="submit" value="Edit" class="button is-default">
+            </form>
+          </div>
+          <% end %>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+  </article>
+</div>
+
+<script type="text/javascript">
+  $("time.timeago").timeago();
+</script>

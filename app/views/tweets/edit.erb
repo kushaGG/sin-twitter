@@ -1,0 +1,12 @@
+<div class="column">
+  <div class="field">
+    <div class="control">
+      <form action="/tweets/<%= @tweet.id %>" method="post">
+        <input id="hidden" type="hidden" name="_method" value="patch">
+        <input class="textarea is-info" placeholder="Update your tweet" name="body" value="<%= @tweet.body %>">
+        <button type="submit" class="button is-primary" style="margin-top: 15px">Edit Tweet </button>
+      </form>
+      <%= @error if @error.present? %>
+    </div>
+  </div>
+</div>

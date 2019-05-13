@@ -1,0 +1,96 @@
+
+<div class="container" style="margin-top: 20px">
+<div class="columns">
+
+  <div class="column is-one-quarter">
+  <nav class="panel">
+    <p class="panel-heading">Profile  <a class="link" href="/users/<%= current_user.id %>/edit"><i class="fas fa-cog"></i></a></p>
+    <div class="panel-block">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <small>@<%= current_user.user_name %></small>
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="panel-block">
+      <div class="level is-mobile">
+        <div class="level-item has-centered-text">
+          <div>
+            <p class="heading">Tweeets</p>
+            <p class="title is-6"><%= current_user.tweets.count %></p>
+          </div>
+        </div>
+        <div class="level-item has-centered-text">
+          <div>
+            <p class="heading">Following</p>
+            <p class="title is-6"><a class="link" href="/users/<%= current_user.id %>/checkfollowing"><%= current_user.followed.count %></a></p>
+          </div>
+        </div>
+          <div class="level-item has-centered-text">
+          <div>
+            <p class="heading">Followers</p>
+            <p class="title is-6">  <a class="link" href="/users/<%= current_user.id %>/checkfollowers"><%= current_user.followers.count %></a></p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </div>
+
+  <div class="column">
+    <div class="field">
+      <div class="control">
+        <form method="post" action="/tweet">
+          <textarea class="textarea is-info" rows="3" cols="50" name="tweet[body]" placeholder="What's new?" maxlength="140"></textarea>
+          <button type="submit" class="button is-primary" style="margin-top: 15px; margin-left: 787px"><span class="glyphicon glyphicon-pencil"> Tweet </button>
+        </form>
+        <%= @error if @error.present? %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <% if logged_in? %>
+
+  <% end %>
+
+  </div>
+</div>
+
+<div class="column is-half">
+
+
+  <% if @maintweets.present? %>
+    <% @maintweets.each do | tweeet | %>
+      <a class="link" href="/tweets/<%= tweeet.id %>"><div class="box">
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <small>@<%= tweeet.user.user_name %></small><br/>
+              <h3><%= tweeet.body %></h3>
+              <p>Created at: <time class="timeago" datetime="<%= tweeet.created_at.getutc.iso8601.to_s %>"><%= tweeet.created_at.strftime("%l:%M %p %v") %></time></p>
+
+            </div>
+          </div>
+        </article>
+      </div></a>
+    <% end %>
+  <% else %>
+    <div class="col-md-3 col-md-offset-4">
+      <b style="text-align: center; display: block;">This user has no meows yet!</b>
+    </div>
+  <% end %>
+</div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+  $("time.timeago").timeago();
+</script>
