@@ -1,0 +1,14 @@
+<nav class="level">
+  <form  action="/users/send_message/<%= @user.id %>" method="post">
+  <div class="level-left">
+    <div class="level-item">
+      <textarea class="textarea is-info" name="message_body" placeholder="Your message to @<%= @user.user_name %>" maxlength="140" style="width: 500px"></textarea>
+
+    </div>
+  </div>
+
+  <div class="level-right">
+<button class="button is-small is-rounded is-primary " type="submit" id="send" value="Send" style="margin-top: 5px"><i class="fas fa-paper-plane"></i></button>
+  </div>
+  </form>
+</nav>

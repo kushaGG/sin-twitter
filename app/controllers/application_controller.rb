@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
     	@maintweets = Tweet.where(user_id: @following_id).order("created_at DESC")
       erb :index
     else
-      erb :"users/login"
+      erb :"users/sign_in"
     end
   end
 

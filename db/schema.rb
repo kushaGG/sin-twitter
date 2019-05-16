@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190513004618) do
+ActiveRecord::Schema.define(version: 20190514211621) do
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "sender_id"
+    t.integer  "reciever_id"
+    t.string   "message_body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"

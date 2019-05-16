@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 	has_many :tweets, foreign_key: :user_id, dependent: :destroy
 
+	has_many :messages
+
 	has_many :relationships, foreign_key: :follower_id, class_name: "Relationship", dependent: :destroy
   has_many :followed, through: :relationships #, source: :followed
 

@@ -8,7 +8,7 @@ class TweetsController < ApplicationController
       @tweets = current_user.tweets
       erb :'user/show'
     else
-      redirect to '/login'
+      redirect to '/sign_in'
     end
   end
 
@@ -22,7 +22,7 @@ class TweetsController < ApplicationController
     if tweet.save
       redirect to "/"
     else
-  	   @error = @tweet.errors.full_messages.first #the error is from the validation whenever you try to save something in
+  	   @error = @tweet.errors.full_messages.first
     end
   end
 
@@ -32,17 +32,17 @@ class TweetsController < ApplicationController
   end
 
 
-  post '/tweets/:id/delete' do
+  delete '/tweets/:id' do
     @tweet = Tweet.delete(params[:id])
     redirect "/"
   end
 
-  get '/tweets/:id/edit' do  #load edit form
+  get '/tweets/:id/edit' do
     @tweet = Tweet.find(params[:id])
     erb :"tweets/edit"
   end
 
-  patch '/tweets/:id' do #edit action
+  patch '/tweets/:id' do
     @tweet = Tweet.find(params[:id])
     @tweet.body = params[:boyd]
     @tweet.save

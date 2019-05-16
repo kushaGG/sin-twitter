@@ -8,7 +8,5 @@ class CreateRelationships < ActiveRecord::Migration
     add_index :relationships, :follower_id
     add_index :relationships, :followed_id
     add_index :relationships, [:follower_id, :followed_id], unique: true
-    #multiple-key index that enforces uniqueness on (follower_id, followed_id) pairs,
-    #so that a user can’t follow another user more than once.
   end
 end

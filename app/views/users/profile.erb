@@ -1,4 +1,3 @@
-
 <div class="container" style="margin-top: 20px">
 <div class="columns">
 
@@ -15,19 +14,22 @@
       <article class="media">
         <div class="media-content">
           <div class="content">
-            <p>
+
               <small>@<%= @user.user_name %></small>
-              <% if current_user.id != @user.id && current_user.following?(@user) %>
-        	        <form action="/users/<%= @user.id %>/unfollow" method="post">
-                      <input type="hidden" name="_method" value="DELETE">
-        		          <input type="submit" value="Unfollow" class="button is-small is rounded is-danger">
-        	        </form>
+
+              <% unless current_user.id == @user.id %>
+                <% if current_user.following?(@user) %>
+          	        <form action="/users/<%= @user.id %>/unfollow" method="post">
+                        <input type="hidden" name="_method" value="DELETE">
+          		          <input type="submit" value="Unfollow" class="button is-small is rounded is-danger">
+          	        </form>
                 <% else %>
-                  <form action="/users/<%= @user.id %>/follow" method="post">
-                    <input type="submit" value="Follow" class="button is-small is rounded is-primary">
-                  </form>
+                    <form action="/users/<%= @user.id %>/follow" method="post">
+                      <input type="submit" value="Follow" class="button is-small is rounded is-primary">
+                    </form>
                 <% end %>
-            </p>
+              <% end %>
+
           </div>
         </div>
       </article>
@@ -68,6 +70,23 @@
       </div>
     </div>
   </div>
+<% else %>
+<nav class="level">
+  <form  action="/users/send_message/<%= @user.id %>" method="post">
+  <div class="level-left">
+    <div class="level-item">
+      <textarea class="textarea is-info" name="message_body" placeholder="Send message to @<%= @user.user_name %>" maxlength="140" style="width: 500px"></textarea>
+    </div>
+  </div>
+
+  <div class="level-right">
+    <div class="level-item">
+        <button class="button is-small is-rounded is-primary " type="submit" id="send" value="Send" style="margin-top: 5px"><i class="fas fa-paper-plane"></i></button>
+    </div>
+
+  </div>
+  </form>
+</nav>
 <% end %>
 </div>
 
@@ -91,7 +110,7 @@
     <% end %>
   <% else %>
     <div class="col-md-3 col-md-offset-4">
-      <b style="text-align: center; display: block;">This user has no meows yet!</b>
+      <b style="text-align: center; display: block;">This user has no tweets yet!</b>
     </div>
   <% end %>
 </div>

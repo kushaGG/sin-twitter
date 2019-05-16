@@ -1,0 +1,17 @@
+<%@messages.each do|message|%>
+  <div class="box">
+    <article class="media">
+      <div class="media-content">
+        <div class="content">
+          <form  action="/users/send_message/<%= message.sender_id %>" method="post">
+            <small>Message from <a href="/users/<%= User.find(message.sender_id).id%>"> @<%= User.find(message.sender_id).user_name%></a></small>
+            <h3><%=message.message_body %></h3>
+            <p>Created at: <time class="timeago" datetime="<%= message.created_at.getutc.iso8601.to_s %>"><%= message .created_at.strftime("%l:%M %p %v") %></time></p>
+            <input type="text" placeholder="Reply" name="message_body" class="input is-rounded" style="width: 300px">
+            <button class="button is-small is-rounded is-primary" type="submit" id="send" value="Send" style="margin-top: 5px"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </article>
+  </div>
+<%end%>

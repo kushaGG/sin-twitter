@@ -1,34 +1,34 @@
 class UsersController < ApplicationController
-  get '/signup' do
+  get '/sign_up' do
     if !logged_in?
-      erb :'/users/create_user'
+      erb :'/users/sign_up'
     else
       redirect '/users/show'
     end
   end
 
-  post '/signup' do
+  post '/sign_up' do
     @user = User.create(email: params[:email], user_name: params[:user_name], password: params[:password])
     if @user.save
       session[:user_id] = @user.id
       redirect "users/#{@user.id}"
     else
-      @signuperror = @user.errors.full_messages.first
-      redirect to '/signup'
+      @sign_uperror = @user.errors.full_messages.first
+      redirect to '/sign_up'
     end
   end
 
-  get '/login' do
-    erb :'/users/login'
+  get '/sign_in' do
+    erb :'/users/sign_in'
   end
 
-  post '/login' do
+  post '/sign_in' do
     @user = User.find_by(user_name: params[:user_name])  # Check if the user exists
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect "users/#{@user.id}"
     else
-      redirect to '/login'
+      redirect to '/sign_in'
     end
   end
 
@@ -46,7 +46,9 @@ class UsersController < ApplicationController
 
     @currenttweets = Tweet.where(user_id: id).order("created_at DESC")
     @user = User.find(id)
+    @messages = current_user.messages
     erb :"users/profile"
+
   end
 
   get '/users/:id/edit' do
@@ -80,5 +82,23 @@ class UsersController < ApplicationController
       @users = User.search(params[:search])
     end
     erb :"users/results"
+  end
+
+  get '/users/send_message/:reciever_id' do
+    @user = User.find(params[:reciever_id])
+    erb :"users/send_message"
+  end
+
+  post '/users/send_message/:reciever_id' do
+    @user = User.find(params[:reciever_id])
+    a = Message.new(sender_id:current_user.id,user_id:params[:reciever_id],message_body:params[:message_body])
+    @user.messages.push(a)
+    redirect '/'
+  end
+
+  get '/users/messages/:id' do
+    @user = User.find(params[:id])
+    @messages = current_user.messages
+    erb :"users/messages"
   end
 end

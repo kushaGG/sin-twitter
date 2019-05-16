@@ -1,9 +1,9 @@
 <div class="container">
 <form action="/users/<%= @user.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  <input type="text" placeholder="Change your username" name="user_name" value="<%= @user.user_name %>">
-  <input type="email" placeholder="Change your email" name="email" value="<%= @user.email %>">
-  <input type="text" placeholder="Change your password" name="password" value="<%= @user.password %>">
-  <input type="submit" value="Submit">
+  <input type="text" placeholder="Change your username" class="input is-rounded" name="user_name" value="<%= @user.user_name %>">
+  <input type="email" placeholder="Change your email" class="input is-rounded" name="email" value="<%= @user.email %>">
+  <input type="text" placeholder="Change your password" class="input is-rounded" name="password" value="<%= @user.password %>">
+  <input type="submit" class="button is-small is-rounded is-primary"  value="Submit">
 </form>
 </div>

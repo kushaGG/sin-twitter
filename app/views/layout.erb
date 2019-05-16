@@ -46,19 +46,15 @@
                       <a class="navbar-link">
                         @<%= @current_user.user_name %>
                       </a>
-
                       <div class="navbar-dropdown">
-
                           <a class="navbar-item" href="/users/<%= @current_user.id %>">Profile</a>
-
-
+                          <a class="navbar-item" href="/users/messages/<%= @current_user.id %>">Messages</a>
                           <a href="/logout" class="navbar-item">Logout</a>
-
                       </div>
                     </div>
                   <% else %>
-                    <a href="/login" class="button is-primary">Log In</a>
-                    <a href="/signup" class="button is-light">Create New User</a>
+                    <a href="/sign_in" class="button is-primary">Sign in</a>
+                    <a href="/signup" class="button is-light">Sign up</a>
                   <% end %>
                 </div>
               </div>
@@ -72,7 +68,7 @@
         <hr>
         <div class="content has-text-centered">
         <small>&copy; 2019 <strong>Twitter by Sinatra</strong></small>
-        
+
         </div>
       </footer>
     </div>
